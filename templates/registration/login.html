@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}Sign in{% endblock %}
+{% block content %}
+<section class="login-wrap"><div class="login-card"><div class="eyebrow">WELCOME BACK</div><h1>Your work, in good hands.</h1><p class="muted">Sign in to see project updates, milestones, and shared deliverables.</p>{% if form.errors %}<p class="message error">That username and password did not match. Try again.</p>{% endif %}<form method="post" class="form-stack">{% csrf_token %}<label for="id_username">Username</label>{{ form.username }}<label for="id_password">Password</label>{{ form.password }}<button class="button primary full" type="submit">Sign in <span>→</span></button><input type="hidden" name="next" value="{{ next }}"></form></div><div class="login-note"><span class="note-icon">✦</span><p>One shared space.<br><strong>Clearer collaboration.</strong></p><small>Project updates without the email chase.</small></div></section>
+{% endblock %}
