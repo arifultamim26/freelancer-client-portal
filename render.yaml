@@ -1,25 +1,21 @@
-databases:
-  - name: studio-desk-db
-    databaseName: studio_desk
-    user: studio_desk
-    plan: basic-256mb
-
 services:
   - type: web
     name: studio-desk
     runtime: python
-    plan: starter
+    plan: free
     buildCommand: ./build.sh
-    startCommand: python -m gunicorn config.wsgi:application --workers 2 --threads 4 --timeout 60
-    healthCheckPath: /health/
+    startCommand: python -m gunicorn config.wsgi:application --workers 1 --threads 2 --timeout 60
+    initialDeployHook: python manage.py createsuperuser --noinput
     envVars:
       - key: DATABASE_URL
-        fromDatabase:
-          name: studio-desk-db
-          property: connectionString
+        sync: false
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG
         value: "false"
-      - key: ALLOWED_HOSTS
-        value: ""
+      - key: DJANGO_SUPERUSER_USERNAME
+        value: portfolio-admin
+      - key: DJANGO_SUPERUSER_EMAIL
+        sync: false
+      - key: DJANGO_SUPERUSER_PASSWORD
+        sync: false
