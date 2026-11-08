@@ -5,7 +5,6 @@ services:
     plan: free
     buildCommand: ./build.sh
     startCommand: python -m gunicorn config.wsgi:application --workers 1 --threads 2 --timeout 60
-    initialDeployHook: python manage.py createsuperuser --noinput
     envVars:
       - key: DATABASE_URL
         sync: false
